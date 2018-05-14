@@ -73,15 +73,15 @@ class App extends React.Component {
             <WhiteFrame>
                 <img src={logo} className={this.state.fetching === true ? "logo-spin" : "logo"} alt="logo" />
                 <form onSubmit={this.handleSubmit}>
-                    <TextInput label={"E-mail addres"} name={"email"} type={"email"} placeholder="youremail@exmple.com" onChange={this.handleInputChange} />
+                    <TextInput label={"E-mail address"} name={"email"} type={"email"} placeholder="youremail@exmple.com" onChange={this.handleInputChange} />
                     <br />
                     <TextInput label={"Password"} name={"password"} type={"password"} placeholder="yourpassword" onChange={this.handleInputChange} />
                     <p style={{ color: "red", padding: 0, margin: 0 }}>{this.state.error == true ? "E-mail or password is incorrect" : null}</p>
                     <button>SIGN IN</button>
                 </form>
-                <div>
-                    <a className="alignleft">Forgot password ?</a>
-                    <a className="alignright">Create a new account</a>
+                <div style={{marginTop:20}}>
+                    <a className="align-left">Forgot password ?</a>
+                    <a className="align-right">Create a new account</a>
                 </div>
             </WhiteFrame>
         </Container>;
