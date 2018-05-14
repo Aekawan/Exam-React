@@ -20,9 +20,9 @@ app.use(bodyPaser.urlencoded({ extended: true }));
 app.post('/api/login', async (req, res, next) => {
     const EMAIL = 'example@appman.co.th';
     const PASSWORD = 'password';
-    const email = _.get(req, ['body', 'email']);
-    const password = _.get(req, ['body', 'password']);
-
+    const email = req.body.email;
+    const password = req.body.password;
+    console.log(req.body)
     await delay(3000);
 
     if (_.isNil(email) || _.isNil(password)) {

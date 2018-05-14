@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
 import WhiteFrame from './components/WhiteFrame'
-import logo from './logo.svg';
-import Container from './components/Container';
+import logo from './logo.svg'
+import Container from './components/Container'
+import TextInput from './components/TextInput'
 
 class App extends React.Component {
     constructor(props) {
@@ -9,54 +10,80 @@ class App extends React.Component {
         this.state = {
             email: null,
             password: null,
-            fetching: false
+            fetching: false,
+            error: false
         }
-        this.handleEmail = this.handleEmail.bind(this);
-        this.handlePassword = this.handlePassword.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleEmail(event) {
-        this.setState({email: event.target.value});
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
     }
 
-    handlePassword(event) {
-        this.setState({password: event.target.value});
+    async handleSubmit(event) {
+        this.setState({ fetching: true, error: false })
+        event.preventDefault();
+
+        let data = await this.goLogin(this.state.email, this.state.password)
+        if (data.status >= 400) {
+            this.setState({ error: true, fetching: false })
+        } else if (data.status >= 200) {
+            alert("Login Successed")
+            this.setState({ email: '', password: '', error: false, fetching: false })
+        }
+
     }
- 
-    goLogin(email,password) {
-        this.setState({'fetching':true})
-        return fetch('http://localhost:3000/api/login',{
-           "email":email,
-           "password": pasword
-         })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            return responseJson;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+
+    goLogin(email = this.state.email, password = this.state.password) {
+        this.setState({ 'fetching': true })
+        let body = { "email": email, "password": password }
+
+        return fetch('http://localhost:3000/api/login', {
+            body: JSON.stringify(body),
+            cache: 'no-cache',
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST',
+            mode: 'cors',
+            redirect: 'follow',
+            referrer: 'no-referrer',
+        })
+            .then((response) => {
+                return response
+            })
+            .catch((error) => {
+                console.error(error)
+            })
     }
 
     render() {
         // start your code here
-        return  <Container>
-                <WhiteFrame>
-                   <div className="container-column">
-                   <img src={logo} className="App-logo" alt="logo" />
-                   <p>E-mail address</p>
-                   <input type="email" name="email" value={this.state.email} onChange={this.handleEmail} placeholder="youremail@examplecom" />
-                   <p>Password</p>
-                   <input type="password" name="email"  value={this.state.password} onChange={this.handlePassword} placeholder="yourpassword" />
-                   <button onClick={() => this.goLogin(this.state.email,this.state.password)}>SIGN IN</button>
-                   </div>
-                   <div className="container-row">
-                      <a>Forgot password ?</a>
-                      <a>Create a new account</a>
-                   </div>
-               </WhiteFrame>
-               </Container>;
+        return <Container>
+            <WhiteFrame>
+                <img src={logo} className={this.state.fetching === true ? "logo-spin" : "logo"} alt="logo" />
+                <form onSubmit={this.handleSubmit}>
+                    <TextInput label={"E-mail addres"} name={"email"} type={"email"} placeholder="youremail@exmple.com" onChange={this.handleInputChange} />
+                    <br />
+                    <TextInput label={"Password"} name={"password"} type={"password"} placeholder="yourpassword" onChange={this.handleInputChange} />
+                    <p style={{ color: "red", padding: 0, margin: 0 }}>{this.state.error == true ? "E-mail or password is incorrect" : null}</p>
+                    <button>SIGN IN</button>
+                </form>
+                <div>
+                    <a className="alignleft">Forgot password ?</a>
+                    <a className="alignright">Create a new account</a>
+                </div>
+            </WhiteFrame>
+        </Container>;
+
     }
 }
 
-export default App;
+export default App
