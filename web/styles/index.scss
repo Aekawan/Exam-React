@@ -15,7 +15,7 @@
     }
     
     html,body {
-        background-color: ghostwhite;
+        background-color: #E0E0E0;
         font-family: $open-sans;
     }
 
@@ -24,7 +24,7 @@
     }
 
     .white-frame {
-        background-color: #ffffff;
+        background-color: ghostwhite;
         padding: 20px;
         width: 300px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
@@ -36,7 +36,7 @@
         justify-content: center;
         align-items: center;
         flex-direction:row;
-        background-color: ghostwhite;
+        background-color: #E0E0E0;
     }
 
       .container-column {
@@ -68,11 +68,9 @@
       button {
           background-color: deepskyblue;
           border-radius: 5px;
-          width: 100px;
+          width: 120px;
           height: 50px;
           margin-top:20px;
-          align-items: center;
-          align-content: center;
           color: #ffffff;
           font-size: 18px;
           box-shadow: transparent;
@@ -80,6 +78,7 @@
           display: inline-block;
           cursor: pointer;
           border: none;
+          align-self:center;
       }
 
       a {
