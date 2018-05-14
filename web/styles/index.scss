@@ -1,4 +1,10 @@
 :global {
+
+    // Google Fonts
+    @import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans:400italic,700italic,400,700);
+    // Font Variables
+    $roboto-slab: 'Roboto Slab', serif;   
+    $open-sans: 'Open Sans', sans-serif;
     // global style here
     .logo-spin {
         animation: App-logo-spin infinite 3s linear;
@@ -10,19 +16,28 @@
     
     html,body {
         background-color: ghostwhite;
+        font-family: $open-sans;
+    }
+
+    *:focus {
+        outline: none;
     }
 
     .white-frame {
         background-color: #ffffff;
+        padding: 20px;
+        width: 300px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     }
 
     .container {
+        display: flex;
+        flex: 1;
         justify-content: center;
-        background-color: #ffffff;
-        width: 500px;
-        padding: 20px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-      }
+        align-items: center;
+        flex-direction:row;
+        background-color: ghostwhite;
+    }
 
       .container-column {
         display: flex; /* or inline-flex */

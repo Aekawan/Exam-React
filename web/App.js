@@ -1,6 +1,7 @@
 import React from 'react';
 import WhiteFrame from './components/WhiteFrame'
 import logo from './logo.svg';
+import Container from './components/Container';
 
 class App extends React.Component {
     constructor(props) {
@@ -37,11 +38,10 @@ class App extends React.Component {
           });
     }
 
-    
-
     render() {
         // start your code here
-        return <WhiteFrame>
+        return  <Container>
+                <WhiteFrame>
                    <div className="container-column">
                    <img src={logo} className="App-logo" alt="logo" />
                    <p>E-mail address</p>
@@ -54,7 +54,8 @@ class App extends React.Component {
                       <a>Forgot password ?</a>
                       <a>Create a new account</a>
                    </div>
-               </WhiteFrame>;
+               </WhiteFrame>
+               </Container>;
     }
 }
 
