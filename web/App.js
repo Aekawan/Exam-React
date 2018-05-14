@@ -30,15 +30,18 @@ class App extends React.Component {
     async handleSubmit(event) {
         this.setState({ fetching: true, error: false })
         event.preventDefault();
-
-        let data = await this.goLogin(this.state.email, this.state.password)
-        if (data.status >= 400) {
+        try {
+            let data = await this.goLogin(this.state.email, this.state.password)
+            if (data.status >= 400) {
+                this.setState({ error: true, fetching: false })
+            } else if (data.status == 200) {
+                this.setState({ email: null, password: null, error: false, fetching: false })
+                alert("Login Successed")
+            }
+        } catch (error) {
+            console.log(error)
             this.setState({ error: true, fetching: false })
-        } else if (data.status >= 200) {
-            alert("Login Successed")
-            this.setState({ email: '', password: '', error: false, fetching: false })
         }
-
     }
 
     goLogin(email = this.state.email, password = this.state.password) {
